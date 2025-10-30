@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>MindGuess</title>
+<link rel="icon" href="https://img.icons8.com/?size=1200&id=bNhSwg0z3eNc&format=jpg">
+<style>
+  :root{
+    --bg:#0f1724;
+    --card:#0b1220;
+    --muted:#9aa4b2;
+    --accent:#4ee1a1;
+    --accent-2:#6cc0ff;
+    --glass: rgba(255,255,255,0.04);
+    --radius:18px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+    background:
+      radial-gradient(1400px 700px at 10% 10%, rgba(108,99,255,0.06), transparent 8%),
+      radial-gradient(1000px 500px at 95% 90%, rgba(90,255,217,0.03), transparent 6%),
+      var(--bg);
+    color:#e6eef6;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:40px;
+  }
+  .island{
+    width:100%;
+    max-width:640px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border:1px solid rgba(255,255,255,0.05);
+    border-radius:var(--radius);
+    box-shadow:0 16px 40px rgba(0,0,0,0.5);
+    backdrop-filter:blur(10px);
+    padding:40px;
+    animation:float 3s ease-in-out infinite;
+  }
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  header{display:flex;align-items:center;gap:16px;margin-bottom:30px}
+  .logo{
+    width:64px;height:64px;border-radius:14px;
+    background:linear-gradient(135deg,var(--accent),var(--accent-2));
+    display:flex;align-items:center;justify-content:center;
+  }
+  .logo img{width:48px;height:48px;border-radius:10px;}
+  h1{font-size:26px;margin:0;}
+  .subtitle{color:var(--muted);font-size:14px;margin-top:4px;}
+  .play-area{
+    background:var(--glass);
+    border:1px solid rgba(255,255,255,0.03);
+    border-radius:14px;
+    padding:24px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+  }
+  .guess-box{
+    display:flex;justify-content:space-between;align-items:center;
+    background:rgba(255,255,255,0.03);
+    border-radius:12px;
+    padding:16px 20px;
+  }
+  .hint{font-size:13px;color:var(--muted)}
+  .guess-value{font-size:32px;font-weight:700}
+  .meta{color:var(--muted);font-size:13px}
+  .controls{display:flex;gap:10px;flex-wrap:wrap}
+  button{
+    appearance:none;border:0;cursor:pointer;
+    padding:10px 16px;border-radius:10px;font-weight:600;font-size:14px;
+    transition:transform .08s ease, box-shadow .12s ease, opacity .12s ease;
+  }
+  button:active{transform:translateY(1px)}
+  .btn-ghost{
+    background:transparent;color:var(--muted);
+    border:1px solid rgba(255,255,255,0.05);
+  }
+  .btn-accent{
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    color:#062226;box-shadow:0 8px 24px rgba(78,225,161,0.12);
+  }
+  .btn-danger{
+    background:linear-gradient(90deg,#ff6b6b,#ff8f7a);
+    color:#1b0300;
+  }
+</style>
+</head>
+<body>
+  <main class="island">
+    <header>
+      <div class="logo"><img src="https://img.icons8.com/?size=1200&id=bNhSwg0z3eNc&format=jpg" alt="Icon"></div>
+      <div>
+        <h1>MindGuess</h1>
+        <p class="subtitle">Computer rät deine Zahl</p>
+      </div>
+    </header>
+
+    <section class="play-area" aria-labelledby="game-heading">
+      <div id="game-heading" style="font-size:15px;color:var(--muted);margin-bottom:4px">
+        Denk an eine Zahl zwischen <strong id="minDisp">1</strong> und <strong id="maxDisp">100</strong>
+      </div>
+
+      <div class="guess-box" role="status" aria-live="polite">
+        <div>
+          <div class="hint" id="hintText">Der Computer schlägt vor:</div>
+          <div class="guess-value" id="guessDisplay">50</div>
+        </div>
+        <div class="meta">Versuche: <strong id="tries">0</strong></div>
+      </div>
+
+      <div class="controls" role="group" aria-label="Antworten">
+        <button id="btnSmaller" class="btn-ghost">Zu groß ↓</button>
+        <button id="btnGreater" class="btn-ghost">Zu klein ↑</button>
+        <button id="btnCorrect" class="btn-accent">Richtig ✓</button>
+        <button id="btnRestart" class="btn-danger">Neu starten ↻</button>
+      </div>
+    </section>
+  </main>
+  <script src="scripts.js"></script>
+</body>
+</html>
